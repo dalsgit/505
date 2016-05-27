@@ -1,0 +1,12 @@
+options ls=78;
+title "Example: Nutrient Intake Data - Descriptive Statistics";
+data nutrient;
+  infile "x:\505\hw1_nutrient.txt";
+  input id calcium iron protein a c;
+  run;
+proc means;
+  var calcium iron protein a c;
+  run;
+proc corr pearson cov;
+  var calcium iron protein a c;
+  run;
