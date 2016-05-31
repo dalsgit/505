@@ -1,0 +1,17 @@
+%let p=2;
+data water;
+	infile "x:\505\hw3_air.dat" firstobs=2;
+	input trt y1 y2;
+run;
+  variable="oxygen_demand"; x=y1; output;
+  variable="suspended_solids";    x=y2;    output;
+  keep variable x;
+  run;
+proc sort;
+  by variable;
+  run;
+proc means;
+  by variable;
+  var x;
+  output out=a n=n mean=xbar var=s2;
+  run;
