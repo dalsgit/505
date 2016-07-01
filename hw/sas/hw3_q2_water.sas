@@ -29,3 +29,7 @@ data b;
     run;
 proc print;
   run;  
+  
+proc corr data=water plots(maxpoints=75000)=matrix;
+	var y1 y2;
+run;  

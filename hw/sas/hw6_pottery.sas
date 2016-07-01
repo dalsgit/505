@@ -1,0 +1,23 @@
+options ls=78;
+title "Bartlett's Test - Pottery Data";
+data pottery;
+  infile "x:\505\hw6_pottery.txt";
+  input site $ al fe mg ca na;
+  run;
+proc discrim pool=test;
+  class site;
+  var al fe mg ca na;
+  run;
+
+proc glm;
+  class site;
+  model al fe mg ca na = site;
+  contrast 'C+L-A-I' site  8 -2  8 -14;
+  contrast 'A vs I ' site  1  0 -1   0;
+  contrast 'C vs L ' site  0  1  0  -1;
+  estimate 'C+L-A-I' site  8 -2  8 -14/ divisor=16;
+  estimate 'A vs I ' site  1  0 -1   0;
+  estimate 'C vs L ' site  0  1  0  -1;
+  lsmeans site / stderr;
+  manova h=site / printe printh;
+  run; 

@@ -1,0 +1,15 @@
+options ls=78;
+title "Split-Plot Analysis - Dog Data";
+data dogs;
+  infile "x:\505\hw7_dog1.dat";
+  input treat dog p1 p2 p3 p4;
+  run;
+proc print;
+  run;
+proc glm;
+  class treat;
+  model p1 p2 p3 p4=treat;
+  manova h=treat / printe;
+  manova h=treat m=p1+p2+p3+p4;
+  manova h=treat m=p2-p1,p3-p2,p4-p3;
+  run;  
