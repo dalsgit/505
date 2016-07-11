@@ -1,0 +1,28 @@
+options ls=78;
+title "Discriminant - Swiss Bank Notes";
+data real;
+  infile "x:\505\hw5_swiss1.dat";
+  input length left right bottom top diag;
+  type="real";
+  run;
+data fake;
+  infile "x:\505\hw5_swiss2.dat";
+  input length left right bottom top diag;
+  type="fake";
+  run;
+data combine;
+  set real fake;
+  run;
+data test;
+  input length left right bottom top diag;
+  cards;
+214.9 130.1 129.9 9 10.6 140.5
+;
+  run;
+proc discrim data=combine pool=test crossvalidate testdata=test testout=a;
+  class type;
+  var length left right bottom top diag;
+  priors "real"=0.99 "fake"=0.01;
+  run;
+proc print;
+  run;

@@ -9,6 +9,11 @@ data dogs;
   time=20; k=h4; output;
   drop h1 h2 h3 h4;
   run;
+proc glm;
+  class treat person time;
+  model k=treat person(treat) time treat*time;
+  test h=treat e=person(treat);
+  run;   
 proc sort;
   by treat time;
   run;
@@ -23,8 +28,9 @@ proc gplot;
   axis2 length=6 in;
   plot mean*time=treat / vaxis=axis1 haxis=axis2;
   symbol1 v=J f=special h=2 i=join color=black;
-  symbol2 v=K f=special h=2 i=join color=black;
+  symbol2 v=K f=special h=2 i=join color=red;
   symbol3 v=L f=special h=2 i=join color=black;
   symbol4 v=M f=special h=2 i=join color=black;
   run;
-  
+ 
+  quit;

@@ -59,3 +59,4 @@ proc glm;
   lsmeans period / stderr;
   manova h=period / printe printh;
   run;  
+ quit;
