@@ -1,0 +1,23 @@
+options ls=78;
+title "Canonical Correlation Analysis - Sub Sales Data";
+data sales;
+  infile "x:\505\HW11_sales.dat";  
+  input growth profit new create mech abs math;
+  run;
+proc cancorr out=canout vprefix=sales vname="Sales Variables" 
+                       wprefix=scores wname="Test Scores";
+  var growth profit;
+  with mech abs math;
+  run;
+proc gplot;
+  axis1 length=3 in;
+  axis2 length=4.5 in;
+  plot sales1*scores1 / vaxis=axis1 haxis=axis2;
+  symbol v=J f=special h=2 i=r color=black;
+  run;
+proc gplot;
+  axis1 length=3 in;
+  axis2 length=4.5 in;
+  plot sales2*scores2 / vaxis=axis1 haxis=axis2;
+  symbol v=J f=special h=2 i=r color=red;
+  run;  
